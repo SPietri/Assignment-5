@@ -1,0 +1,25 @@
+
+A <- matrix(1:100, nrow=5)  
+B <- matrix(1:1000, nrow=5)
+
+#Now to transpose the matrices just like by hand. 
+t(A)
+t(B)
+
+#To find the determinant, you have to change the dimensions because it has to be done on a square matrix. 
+#I'm re naming the objects. 
+
+A2 <- matrix(1:100, nrow=10) 
+det(A2)
+
+#solve() gets the inverse. 
+solve(A2)
+#Our return on this is 0. So our matrix is singular. 
+
+#We will not do the second matrix because it can't be square...ever.  
+#Instead, I will use the MASS package that will allow me to find the inverse of a non square matrix. 
+library("MASS", lib.loc="~/R/win-library/3.4")
+ginv(B)
+
+#Let's clean it up.  
+round(ginv(B), digits = 4)
