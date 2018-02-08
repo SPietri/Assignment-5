@@ -1,25 +1,93 @@
+                 
+                 # Matrix Manipulation - Linear Algebra : Inverse / Determinant of Matrix #
+#############################################################################################################
+#############################################################################################################
 
-A <- matrix(1:100, nrow=5)  
-B <- matrix(1:1000, nrow=5)
+# You can change the rows of the matrix to be a multiple of the numbers. 
+# So, you could change it as A <- matrix(1:100, nrow=4)  
+#                            B <- matrix(1:1000, nrow=10)
+# What I just learned is, you can proceed with the error message.So, we are going to do that.  
+A <- matrix(1:100, nrow=6)  
+B <- matrix(1:1000, nrow=6)
 
-#Now to transpose the matrices just like by hand. 
+############################################################################################################
+############################################################################################################
+
+#Now to transpose the matrices just like by hand. Use the t() command.  
 t(A)
 t(B)
 
-#To find the determinant, you have to change the dimensions because it has to be done on a square matrix. 
-#I'm re naming the objects. 
+############################################################################################################
+############################################################################################################
 
+# Multiply the matrix by a vextor. Create the vector then multiply. 
+a <- c(1:2)
+b <- c(1:4)
+
+X <- a*A
+Y<- b*B
+
+############################################################################################################
+############################################################################################################
+
+# Multiply the matrix by a matrix use the %*% operator. This returns the remainder. 
+# The vector has to be the length of the columns. 
+# If you are using the A with nrow = 4 and B nrow = 10, this is what it will look like. 
+#                                                                                      a <- c(1:25)
+#                                                                                      b <- c(1:100)
+#For the nrow = 6 cases see below: 
+a <- c(1:17)
+b <- c(1:167)
+
+A%*%a
+B%*%b
+
+###########################################################################################################
+###########################################################################################################
+# This part will use the A matrix with dimensions changed to nrow =10.
+# To find the determinant, you have to change the dimensions because it has to be done on a square matrix. 
+# I'm re-naming the objects. 
 A2 <- matrix(1:100, nrow=10) 
 det(A2)
-
-#solve() gets the inverse. 
+# Our determinant is zero.
+# solve() gets the inverse. 
 solve(A2)
-#Our return on this is 0. So our matrix is singular. 
+# Our return on this is 0. So our matrix is singular.
+# As you can see, this entire section did not work. The explanation is below. 
 
-#We will not do the second matrix because it can't be square...ever.  
-#Instead, I will use the MASS package that will allow me to find the inverse of a non square matrix. 
-library("MASS", lib.loc="~/R/win-library/3.4")
-ginv(B)
+###########################################################################################################
+###########################################################################################################
 
-#Let's clean it up.  
-round(ginv(B), digits = 4)
+# The above is a problem as the matrix is not invertible. 
+# To see how this works without problems, we create two matrices that are square.
+# Let's call these A3 and B3 so we don't get it confused with our other variables. 
+# Per my Professor, incremental values also create problem. Be aware of this.
+# Create the matrix then use solve() for the inverse and det() for the determinant. 
+A3 <- matrix(1:4, nrow = 2)
+B3 <- matrix(c(3, 6,9,12,15,18,21,24,30), nrow =3) #I did B3 like this because of the problem with incremental numbers.. 
+
+
+det(A3)
+solve(A3)
+det(B3)
+round(solve(B3), digits = 2)
+
+#############################################################################################################
+#############################################################################################################
+
+# My professor gave me another example to go through. 
+# He said, we can use the runif () command to generate random values for our matrix. 
+# I believe this is so we avoid the problem of incremental numbers as we had trouble with them in B3. 
+# The way you use the runif()command is:
+# runif(number_of_desired_values, min = desired_lowest_start_number, max = desired_highest_end_number)
+# 
+#Below is the code from my Professor:
+A4 = matrix(runif(25, min = 0, max = 50), nrow = 5) 
+solve(A4)
+det(A4) 
+# Great!Just remember because it is random, each time you repeat this it will get a different value.  
+
+#############################################################################################################
+#############################################################################################################
+
+
